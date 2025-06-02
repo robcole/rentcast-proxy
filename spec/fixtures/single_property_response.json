@@ -1,0 +1,53 @@
+{
+  "id": "12345",
+  "formattedAddress": "123 Main St, Austin, TX 78701",
+  "addressLine1": "123 Main St",
+  "city": "Austin",
+  "state": "TX",
+  "zipCode": "78701",
+  "county": "Travis",
+  "latitude": 30.2672,
+  "longitude": -97.7431,
+  "propertyType": "Single Family",
+  "bedrooms": 3,
+  "bathrooms": 2.0,
+  "squareFootage": 1500,
+  "lotSize": 7200,
+  "yearBuilt": 1985,
+  "features": {
+    "architectureType": "Traditional",
+    "coolingType": "Central Air",
+    "exteriorType": "Brick",
+    "fireplace": true,
+    "garageSpaces": 2,
+    "heatingType": "Gas",
+    "pool": false,
+    "roofType": "Composition Shingle"
+  },
+  "taxAssessments": {
+    "2023": {
+      "year": 2023,
+      "value": 450000,
+      "landValue": 150000,
+      "improvementValue": 300000
+    }
+  },
+  "propertyTaxes": {
+    "2023": {
+      "year": 2023,
+      "amount": 9000
+    }
+  },
+  "lastSaleDate": "2021-06-15",
+  "lastSalePrice": 425000,
+  "owner": {
+    "names": ["John Smith", "Jane Smith"],
+    "type": "Individual",
+    "mailingAddress": {
+      "addressLine1": "123 Main St",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "78701"
+    }
+  }
+}

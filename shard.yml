@@ -1,0 +1,32 @@
+name: rentcast-proxy
+version: 0.1.0
+
+authors:
+  - "Your Name <your@email.com>"
+
+description: |
+  A typed API wrapper and proxy for Rentcast API with caching
+
+crystal: ">= 1.0.0"
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+    version: ~> 1.4.0
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+    version: ~> 0.21.0
+
+development_dependencies:
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    version: ~> 1.0.0
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.6.0
+
+targets:
+  rentcast-proxy:
+    main: src/rentcast-proxy.cr
+
+license: MIT

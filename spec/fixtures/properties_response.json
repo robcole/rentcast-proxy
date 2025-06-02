@@ -1,0 +1,105 @@
+{
+  "properties": [
+    {
+      "id": "12345",
+      "formattedAddress": "123 Main St, Austin, TX 78701",
+      "addressLine1": "123 Main St",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "78701",
+      "county": "Travis",
+      "latitude": 30.2672,
+      "longitude": -97.7431,
+      "propertyType": "Single Family",
+      "bedrooms": 3,
+      "bathrooms": 2.0,
+      "squareFootage": 1500,
+      "lotSize": 7200,
+      "yearBuilt": 1985,
+      "features": {
+        "architectureType": "Traditional",
+        "coolingType": "Central Air",
+        "exteriorType": "Brick",
+        "fireplace": true,
+        "garageSpaces": 2,
+        "heatingType": "Gas",
+        "pool": false,
+        "roofType": "Composition Shingle"
+      },
+      "taxAssessments": {
+        "2023": {
+          "year": 2023,
+          "value": 450000,
+          "landValue": 150000,
+          "improvementValue": 300000
+        }
+      },
+      "propertyTaxes": {
+        "2023": {
+          "year": 2023,
+          "amount": 9000
+        }
+      },
+      "lastSaleDate": "2021-06-15",
+      "lastSalePrice": 425000,
+      "owner": {
+        "names": ["John Smith", "Jane Smith"],
+        "type": "Individual",
+        "mailingAddress": {
+          "addressLine1": "123 Main St",
+          "city": "Austin",
+          "state": "TX",
+          "zipCode": "78701"
+        }
+      }
+    },
+    {
+      "id": "67890",
+      "formattedAddress": "456 Oak Ave, Austin, TX 78702",
+      "addressLine1": "456 Oak Ave",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "78702",
+      "county": "Travis",
+      "latitude": 30.2500,
+      "longitude": -97.7200,
+      "propertyType": "Condo",
+      "bedrooms": 2,
+      "bathrooms": 1.5,
+      "squareFootage": 950,
+      "yearBuilt": 2010,
+      "features": {
+        "architectureType": "Contemporary",
+        "coolingType": "Central Air",
+        "exteriorType": "Stucco",
+        "fireplace": false,
+        "garageSpaces": 1,
+        "heatingType": "Electric",
+        "pool": true,
+        "roofType": "Tile"
+      },
+      "taxAssessments": {
+        "2023": {
+          "year": 2023,
+          "value": 275000,
+          "landValue": 0,
+          "improvementValue": 275000
+        }
+      },
+      "propertyTaxes": {
+        "2023": {
+          "year": 2023,
+          "amount": 5500
+        }
+      },
+      "lastSaleDate": "2022-03-10",
+      "lastSalePrice": 265000,
+      "owner": {
+        "names": ["Bob Johnson"],
+        "type": "Individual"
+      }
+    }
+  ],
+  "count": 2,
+  "total": 156
+}

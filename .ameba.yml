@@ -1,0 +1,28 @@
+# Ameba configuration for Rentcast Proxy
+
+# Globs to include/exclude
+Globs:
+  - "src/**/*.cr"
+  - "spec/**/*.cr"
+  - "!lib/**/*"
+
+# Rule configuration
+Style/LargeNumbers:
+  Enabled: false
+
+Lint/UselessAssign:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+# Allow longer line lengths for readability
+Layout/LineLength:
+  MaxLength: 120
+
+# Disable specific rules that conflict with project style
+Style/NegatedConditionsInUnless:
+  Enabled: false
+
+Naming/VariableNames:
+  Enabled: false

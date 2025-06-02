@@ -1,0 +1,80 @@
+require "sqlite3"
+require "json"
+
+module RentcastProxy
+  class Database
+    DB_PATH = "cache.db"
+
+    def self.initialize_db
+      db = DB.open("sqlite3://#{DB_PATH}")
+
+      db.exec <<-SQL
+        CREATE TABLE IF NOT EXISTS cache (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          endpoint TEXT NOT NULL,
+          query_params TEXT NOT NULL,
+          response_body TEXT NOT NULL,
+          status_code INTEGER NOT NULL,
+          created_at INTEGER NOT NULL,
+          expires_at INTEGER NOT NULL,
+          UNIQUE(endpoint, query_params)
+        )
+      SQL
+
+      db.exec <<-SQL
+        CREATE INDEX IF NOT EXISTS idx_cache_endpoint_params
+        ON cache(endpoint, query_params)
+      SQL
+
+      db.exec <<-SQL
+        CREATE INDEX IF NOT EXISTS idx_cache_expires_at
+        ON cache(expires_at)
+      SQL
+
+      db.close
+    end
+
+    def self.get_cached_response(endpoint : String, query_params : String)
+      db = DB.open("sqlite3://#{DB_PATH}")
+      current_time = Time.utc.to_unix
+
+      result = db.query_one?(
+        "SELECT response_body, status_code FROM cache WHERE endpoint = ? AND query_params = ? AND expires_at > ?",
+        endpoint, query_params, current_time
+      ) do |row|
+        {response_body: row.read(String), status_code: row.read(Int32)}
+      end
+
+      db.close
+      result
+    end
+
+    def self.cache_response(endpoint : String,
+                            query_params : String,
+                            response_body : String,
+                            status_code : Int32,
+                            ttl_seconds : Int32 = 604800)
+      return if status_code >= 400
+
+      db = DB.open("sqlite3://#{DB_PATH}")
+      current_time = Time.utc.to_unix
+      expires_at = current_time + ttl_seconds
+
+      db.exec(
+        "INSERT OR REPLACE INTO cache (endpoint, query_params, response_body, status_code, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?)",
+        endpoint, query_params, response_body, status_code, current_time, expires_at
+      )
+
+      db.close
+    end
+
+    def self.cleanup_expired_cache
+      db = DB.open("sqlite3://#{DB_PATH}")
+      current_time = Time.utc.to_unix
+
+      db.exec("DELETE FROM cache WHERE expires_at <= ?", current_time)
+
+      db.close
+    end
+  end
+end
