@@ -1,4 +1,4 @@
-FROM crystallang/crystal:1.14.0-alpine AS base
+FROM crystallang/crystal:1.16.3-alpine AS base
 
 # Install dependencies
 RUN apk add --no-cache \

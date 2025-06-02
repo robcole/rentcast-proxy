@@ -7,7 +7,7 @@ authors:
 description: |
   A typed API wrapper and proxy for Rentcast API with caching
 
-crystal: ">= 1.0.0"
+crystal: ">= 1.16.3"
 
 dependencies:
   kemal:
