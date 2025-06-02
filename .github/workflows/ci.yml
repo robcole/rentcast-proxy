@@ -97,4 +97,4 @@ jobs:
           platforms: linux/amd64
           build-args: |
             BASE_COMPILER_TAG=${{ needs.check-base-compiler.outputs.compiler-tag }}
-            BUILDKIT_INLINE_CACHE=1
+            BUILDKIT_INLINE_CACHE=1 

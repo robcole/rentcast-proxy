@@ -59,4 +59,4 @@ jobs:
         if: always()
         run: |
           docker stop rentcast-proxy-test || true
-          docker rm rentcast-proxy-test || true
+          docker rm rentcast-proxy-test || true 
