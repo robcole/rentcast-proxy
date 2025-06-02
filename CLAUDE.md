@@ -57,6 +57,13 @@
 - **Configuration data should be in JSON fixture files** rather than hardcoded in source
 - **All JSON files must validate** with proper syntax and structure
 
+## File Ending Requirements
+- **ALL Dockerfiles, YAML/YML files, and JSON files MUST end with a single trailing newline**
+- **NO trailing whitespace** - files should end with content followed by exactly one newline character
+- **This applies to**: `Dockerfile`, `*.yml`, `*.yaml`, `*.json`
+- **Example**: File content should end like `"value": 100}\n` (note the newline after the closing brace)
+- **Rationale**: Ensures consistent file endings and prevents issues with certain tools
+
 ## Output Formatting
 - **ALWAYS** use built-in Colorize module for console output formatting: https://crystal-lang.org/api/1.16.3/Colorize.html
 - Add `require "colorize"` to source files (no shard dependency needed - it's built into Crystal)

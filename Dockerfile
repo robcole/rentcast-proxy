@@ -1,6 +1,10 @@
-FROM crystallang/crystal:1.16.3-alpine AS base
+ARG BASE_COMPILER_TAG=base-compiler-latest
+ARG TARGETPLATFORM
 
-# Install dependencies
+# Try to use the yolo.cr base compiler, fall back to Crystal official if not available
+FROM --platform=$TARGETPLATFORM crystallang/crystal:1.16.3-alpine AS base_crystal
+
+# Install dependencies for Crystal builds
 RUN apk add --no-cache \
     sqlite-dev \
     sqlite-static \
@@ -11,18 +15,20 @@ RUN apk add --no-cache \
     musl-dev \
     gcc
 
+# Set up workspace
 WORKDIR /app
 
-# Copy shard files first for better layer caching
+FROM base_crystal AS compiler
+
+FROM compiler AS builder
+
+WORKDIR /app
+
+# Copy shard files for dependency management
 COPY shard.yml shard.lock ./
 
-# Install shards (will be cached if shard files don't change)
-RUN shards install --production
-
-# Install ameba for linting
-RUN shards install ameba
-
-FROM base AS builder
+# Install all dependencies including development ones for ameba
+RUN shards install
 
 # Copy source code
 COPY src/ ./src/
@@ -42,16 +48,18 @@ RUN crystal build src/rentcast-proxy.cr \
     --link-flags "-static" \
     -o rentcast-proxy
 
-FROM alpine:3.19 AS runtime
+FROM --platform=$TARGETPLATFORM debian:bookworm-slim AS runtime
 
 # Install runtime dependencies
-RUN apk add --no-cache ca-certificates
+RUN apt-get update && \
+    apt-get install -y ca-certificates curl libyaml-0-2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create non-root user
-RUN addgroup -g 1000 rentcast && \
-    adduser -D -u 1000 -G rentcast -s /bin/sh rentcast
+RUN groupadd -g 1000 rentcast && \
+    useradd -r -u 1000 -g rentcast -s /bin/sh rentcast
 
-# Create app directory
 WORKDIR /app
 RUN chown rentcast:rentcast /app
 
@@ -66,7 +74,7 @@ EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+  CMD curl -f http://localhost:3000/health || exit 1
 
 # Default command
 CMD ["./rentcast-proxy"]
