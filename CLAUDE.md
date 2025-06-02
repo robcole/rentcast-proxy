@@ -58,10 +58,10 @@
 - **All JSON files must validate** with proper syntax and structure
 
 ## File Ending Requirements
-- **ALL Dockerfiles, YAML/YML files, and JSON files MUST end with a single trailing space**
-- **NO trailing newlines** - files should end with content followed by exactly one space character
+- **ALL Dockerfiles, YAML/YML files, and JSON files MUST end with a single trailing newline**
+- **NO trailing whitespace** - files should end with content followed by exactly one newline character
 - **This applies to**: `Dockerfile`, `*.yml`, `*.yaml`, `*.json`
-- **Example**: File content should end like `"value": 100} ` (note the space after the closing brace)
+- **Example**: File content should end like `"value": 100}\n` (note the newline after the closing brace)
 - **Rationale**: Ensures consistent file endings and prevents issues with certain tools
 
 ## Output Formatting
